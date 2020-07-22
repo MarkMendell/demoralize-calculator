@@ -91,7 +91,7 @@ function recalcResult() {
 	const diffCr = dem - Math.floor(15 + 1.5*cr);
 	const diffInt = dem - (10 + intim);
 	const diffMin = Math.min(diffCr, diffInt);
-	if (diffMin > 0) {
+	if (diffMin >= 0) {
 		result.textContent = (2+Math.floor(diffMin/5)) + ' turns';
 	} else result.textContent = 'FAILS';
 }
