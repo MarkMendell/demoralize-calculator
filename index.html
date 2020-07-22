@@ -1,0 +1,115 @@
+<!doctype html>
+<style>
+.selected { border:solid red 3px; }
+</style>
+<button id="clear">Clear</button>
+<br>
+Demoralize
+<button class="demnum">22</button>
+<button class="demnum">23</button>
+<button class="demnum">24</button>
+<button class="demnum">25</button>
+<button class="demnum">26</button>
+<button class="demnum">27</button>
+<button class="demnum">28</button>
+<button class="demnum">29</button>
+<button class="demnum">30</button>
+<button class="demnum">31</button>
+<button class="demnum">32</button>
+<button class="demnum">33</button>
+<button class="demnum">34</button>
+<button class="demnum">35</button>
+<button class="demnum">36</button>
+<button class="demnum">37</button>
+<button class="demnum">38</button>
+<button class="demnum">39</button>
+<button class="demnum">40</button>
+<button class="demnum">41</button>
+<br>
+CR
+<button class="crnum">1</button>
+<button class="crnum">2</button>
+<button class="crnum">3</button>
+<button class="crnum">4</button>
+<button class="crnum">5</button>
+<button class="crnum">6</button>
+<button class="crnum">7</button>
+<button class="crnum">8</button>
+<button class="crnum">9</button>
+<button class="crnum">10</button>
+<button class="crnum">11</button>
+<button class="crnum">12</button>
+<button class="crnum">13</button>
+<button class="crnum">14</button>
+<button class="crnum">15</button>
+<button class="crnum">16</button>
+<button class="crnum">17</button>
+<button class="crnum">18</button>
+<button class="crnum">19</button>
+<button class="crnum">20</button>
+<br>
+Intimidate
+<button class="intnum">1</button>
+<button class="intnum">2</button>
+<button class="intnum">3</button>
+<button class="intnum">4</button>
+<button class="intnum">5</button>
+<button class="intnum">6</button>
+<button class="intnum">7</button>
+<button class="intnum">8</button>
+<button class="intnum">9</button>
+<button class="intnum">10</button>
+<button class="intnum">11</button>
+<button class="intnum">12</button>
+<button class="intnum">13</button>
+<button class="intnum">14</button>
+<button class="intnum">15</button>
+<button class="intnum">16</button>
+<button class="intnum">17</button>
+<button class="intnum">18</button>
+<button class="intnum">19</button>
+<button class="intnum">20</button>
+<br>
+<span id="result"></span>
+<script>
+const esDem = Array.from(document.querySelectorAll('.demnum'));
+const esCr = Array.from(document.querySelectorAll('.crnum'));
+const esInt = Array.from(document.querySelectorAll('.intnum'));
+
+function recalcResult() {
+	result.textContent = '';
+	const eDem = document.querySelector('.demnum.selected');
+	if (!eDem) return;
+	const eCr = document.querySelector('.crnum.selected');
+	if (!eCr) return;
+	const eInt = document.querySelector('.intnum.selected');
+	if (!eInt) return;
+	const dem = parseInt(eDem.textContent);
+	const cr = parseInt(eCr.textContent);
+	const intim = parseInt(eInt.textContent);
+	let nTurns = 0;
+	const diffCr = dem - Math.floor(15 + 1.5*cr);
+	const diffInt = dem - (10 + intim);
+	const diffMax = Math.max(diffCr, diffInt);
+	if (diffMax > 0) {
+		result.textContent = (2+Math.floor(diffMax/5)) + ' turns';
+	} else result.textContent = 'FAILS';
+}
+
+clear.addEventListener('click', () => {
+	[esDem,esCr,esInt].forEach(esBtn => {
+		esBtn.forEach(eBtn => eBtn.classList.remove('selected'));
+	});
+	recalcResult();
+});
+
+[esDem,esCr,esInt].forEach(esBtn => {
+	esBtn.forEach(eBtn => {
+		eBtn.addEventListener('click', () => {
+			esBtn.forEach(e => e.classList.remove('selected'));
+			eBtn.classList.add('selected');
+			recalcResult();
+		});
+	});
+});
+</script>
