@@ -76,26 +76,37 @@ const esDem = Array.from(document.querySelectorAll('.demnum'));
 const esCr = Array.from(document.querySelectorAll('.crnum'));
 const esInt = Array.from(document.querySelectorAll('.intnum'));
 
+/* Calculate and display the result based on the values selected. */
 function recalcResult() {
+
+	// Clear result
 	result.textContent = '';
+
+	// Don't calculate if any isn't selected yet
 	const eDem = document.querySelector('.demnum.selected');
 	if (!eDem) return;
 	const eCr = document.querySelector('.crnum.selected');
 	if (!eCr) return;
 	const eInt = document.querySelector('.intnum.selected');
 	if (!eInt) return;
+
+	// Get numbers from selected
 	const dem = parseInt(eDem.textContent);
 	const cr = parseInt(eCr.textContent);
 	const intim = parseInt(eInt.textContent);
-	let nTurns = 0;
+
+	// Calculate best differential
 	const diffCr = dem - Math.floor(15 + 1.5*cr);
 	const diffInt = dem - (10 + intim);
 	const diffMin = Math.min(diffCr, diffInt);
+
+	// Set result
 	if (diffMin >= 0) {
 		result.textContent = (2+Math.floor(diffMin/5)) + ' turns';
 	} else result.textContent = 'FAILS';
 }
 
+// Handle clear
 clear.addEventListener('click', () => {
 	[esDem,esCr,esInt].forEach(esBtn => {
 		esBtn.forEach(eBtn => eBtn.classList.remove('selected'));
@@ -103,6 +114,7 @@ clear.addEventListener('click', () => {
 	recalcResult();
 });
 
+// Add listeners for selecting values
 [esDem,esCr,esInt].forEach(esBtn => {
 	esBtn.forEach(eBtn => {
 		eBtn.addEventListener('click', () => {
